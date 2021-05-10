@@ -62,7 +62,7 @@ for (i in names(regions))
                    Below are the addresses of members from your region who have requested AWW by post.  Please ensure they get the latest copy.\n
                    Nga mihi ...\n
                    P\n")
-  regList <- newList[newList$Region==names(i), 1:5]
+  regList <- newList[newList$Region==i, 1:5]
   regList <- paste(apply(regList, 1, paste, collapse=', \t'), collapse='\n')
   writeLines(paste(content, regList, sep='\n\n'), 'AWWTemp.txt')
   cmd <- paste('/usr/sbin/sendmail', email, '< AWWTemp.txt')
