@@ -60,6 +60,7 @@ for (i in names(regions))
   content <- paste("Subject: AWW by Post\n
                    Kia ora\n
                    Below are the addresses of members from your region who have requested AWW by post.  Please ensure they get the latest copy.\n
+                   The June copy is available at https://anthroposophie.org/en/pdf-archive.\n
                    Nga mihi ...\n
                    P\n")
   regList <- newList[newList$Region==i, 1:5]
