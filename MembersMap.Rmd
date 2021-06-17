@@ -16,14 +16,18 @@ load('townAndSuburbPositions')
 ```
 
 ```{r membersAddresses}
+# Note: it is necesscary to first temporarily make the address list available to anyone with a link
+
 # Get addresses of members
 addList <- gsheet::gsheet2tbl('https://docs.google.com/spreadsheets/d/117-hjbsw2lKb-ywtbMZV7Yqvw_eo1j9j8kk07WuxUgw/edit#gid=7')
-addList <- as.data.frame(addList)[, c('Address2','Address3a','Region','Status')]
+addList <- as.data.frame(addList)[, c('Address2','Address3a','Region','Status','Birth year')]
 addList <- addList[tolower(addList$Status) %in% c('life member','member'),]
+YoB <- addList$`Birth year`
 addList <- addList[!is.na(addList$Address2) | !is.na(addList$Address3a),]
 addList[is.na(addList$Address3a), 'Address3a'] <- addList[is.na(addList$Address3a), 'Address2']
-addList <- addList[addList$Region!='Overseas',]
+```
 
+```{r mergeWithLocations}
 # Identify central town for each region (this will need to be amended if members join from new regions)
 regCent <- data.frame(Region=c('Auckland','Bay of Plenty','Canterbury','Christchurch','Coromandel','Dunedin','Hawkes Bay',
                                'Manawatu','Nelson/Marlborough','Northland','Otago','Taranaki','Waikato','Wellington','West Coast'),
@@ -33,8 +37,11 @@ regCent <- data.frame(Region=c('Auckland','Bay of Plenty','Canterbury','Christch
                       Centre=c('Auckland','Tauranga','Christchurch','Christchurch','Thames','Dunedin','Napier',
                                'Palmerston North','Nelson','Whangarei','Dunedin','New Plymouth','Hamilton','Wellington','Greymouth'),
                       stringsAsFactors=FALSE)
+addList <- addList[addList$Region!='Overseas',]
 addList <- merge(addList, regCent)
+```
 
+```{r regionalNumbers}
 # Regional numbers
 cexReg <- table(addList$Centre)
 nosByReg <- data.frame(cex=cexReg, townPos[townPos$town %in% names(cexReg), -1])
@@ -62,3 +69,19 @@ for (i in 1:nrow(nosByReg))
   #      paste(nosByReg[i, 'Region'], nosByReg[i, 'Reo'], sep='\n'), adj=myAdj[i], cex=0.9)
 }
 ```
+
+## Age structure of membership
+
+```{r ageStructure, fig.height=7, fig.cap='Age structure of the membership.'}
+currYr <- date()
+currYr <- as.integer(substring(currYr, nchar(currYr)-3))
+ages <- currYr-YoB
+
+par(las=1, xpd=TRUE, mgp=c(2.3, 0.8, 0))
+tt <- hist(ages, main='', xlab='Age', ylab='Number of members')
+tkMarks <- pretty(tt$counts)
+axis(2, at=c(0, max(tkMarks)), labels=c('', max(tkMarks)))
+lines(rep(c(min(tt$breaks), max(tt$breaks), NA), length(tkMarks)), rep(tkMarks, each=3), lty='dotted', col='grey30')
+```
+
+There are currently `r length(ages)` members of the New Zealand Anthroposophical Society, but the database holds the age of only `r length(ages[!is.na(ages)])` of these.  This is because the data was not collected initially, and thus those members for whom we do not have their age are likely to be older (in general) than those for whom we do have the data.  Thus, the age structure above is somewhat biased.
