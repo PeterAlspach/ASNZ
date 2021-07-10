@@ -1,6 +1,11 @@
 ## This code gets the address (from the address list) of those members who request AWW by post, and compares it with the
 ## file from the previous month (stored on this PC).  If it differs, it allows one to check where and to save the new
 ## version.  It then sends the regional representatives the list for the region
+##
+## Prior to running this code it is necessary to:
+## Temporarily allow anyone with a link to access the ASNZ master contact list.  Remember to switch back to restricted
+##   immediately after running the code;
+## Allow less secure apps to access anthropsocmcl@gmail.com
 
 ## Set working directory
 setwd('~/Anthroposophy/Publications')
