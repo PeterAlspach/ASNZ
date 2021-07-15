@@ -7,6 +7,8 @@
 ##   immediately after running the code;
 ## Allow less secure apps to access anthropsocmcl@gmail.com
 
+## Consider adding advice from Robin re checking if members really want this??
+
 ## Set working directory
 setwd('~/Anthroposophy/Publications')
 
@@ -14,7 +16,7 @@ setwd('~/Anthroposophy/Publications')
 emails <- c(Auckland='emma.ratcliff@gmail.com',
             'Bay of Plenty'='stellahamiltonbaker@gmail.com',
             Canterbury='robinms@tutanota.com',
-            Christchurch='robinms@tutanota.com',
+            Christchurch='snowdon.margaret@gmail.com',
             Coromandel='judyjannis@gmail.com',
             Dunedin='cpsuggate@gmail.com',
             'Hawkes Bay'='robyn@wellspoken.co.nz',
