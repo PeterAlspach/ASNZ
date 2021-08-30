@@ -15,7 +15,7 @@ setwd('~/Anthroposophy/Publications')
 ## Regional representative email addresses
 emails <- c(Auckland='emma.ratcliff@gmail.com',
             'Bay of Plenty'='stellahamiltonbaker@gmail.com',
-            Canterbury='robinms@tutanota.com',
+            Canterbury='snowdon.margaret@gmail.com',
             Christchurch='snowdon.margaret@gmail.com',
             Coromandel='judyjannis@gmail.com',
             Dunedin='cpsuggate@gmail.com',
@@ -67,7 +67,7 @@ for (i in names(regions))
   content <- paste("Subject: AWW by Post\n
                    Kia ora\n
                    Below are the addresses of members from your region who have requested AWW by post.  Please ensure they get the latest copy.\n
-                   The June copy is available at https://anthroposophie.org/en/pdf-archive.\n
+                   The latest copy is available at https://anthroposophie.org/en/pdf-archive.\n
                    Nga mihi ...\n
                    P\n")
   regList <- newList[newList$Region==i, 1:5]
